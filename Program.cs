@@ -1,4 +1,6 @@
 using AgendaContatos.Data;
+using AgendaContatos.Data.Interfaces;
+using AgendaContatos.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AgendaContatoContext>();
+builder.Services.AddScoped<IAgendaContatoRepository, AgendaContatoRepository>();
 
 var app = builder.Build();
 
