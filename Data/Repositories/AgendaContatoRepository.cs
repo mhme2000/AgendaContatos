@@ -20,5 +20,11 @@ namespace AgendaContatos.Data.Repositories
         {
             return _context.AgendaContato?.FirstOrDefault(t => t.AgendaContatoId == agendaContatoId);
         }
+
+        public void Update(AgendaContatoModel agendaContato)
+        {
+            _context.AgendaContato?.Update(agendaContato);
+            _context.SaveChanges();
+        }
     }
 }

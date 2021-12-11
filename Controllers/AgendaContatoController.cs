@@ -28,5 +28,16 @@ namespace AgendaContatos.Controllers
             var model = _agendaContatoRepository.GetById(agendaContatoId);
             return Ok(model);
         }
+
+
+        [HttpPut]
+        public IActionResult Update([FromBody] AgendaContatoModel model)
+        {
+            var agendaContato = _agendaContatoRepository.GetById(model.AgendaContatoId);
+            if (agendaContato == null)
+                return NotFound();
+            _agendaContatoRepository.Update(model);
+            return Ok();
+        }
     }
 }
