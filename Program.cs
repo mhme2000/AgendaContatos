@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AgendaContatoContext>();
-builder.Services.AddScoped<IAgendaContatoRepository, AgendaContatoRepository>();
+// builder.Services.AddScoped<IAgendaContatoRepository, AgendaContatoRepository>();
 
 var app = builder.Build();
 

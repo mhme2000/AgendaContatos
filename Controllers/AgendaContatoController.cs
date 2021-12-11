@@ -20,4 +20,10 @@ public class AgendaContatoController : ControllerBase
         _agendaContatoRepository.Add(model);
         return Ok();
     }
+
+    // [HttpGet]
+    // public IActionResult Get(int agendaContatoId)
+    // {
+    //     // _agendaContatoRepository.
+    // }
 }
