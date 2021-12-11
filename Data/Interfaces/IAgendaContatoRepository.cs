@@ -6,5 +6,6 @@ namespace AgendaContatos.Data.Interfaces
     {
         void Add(AgendaContatoModel agendaContato);
         AgendaContatoModel? GetById(int agendaContatoId);
+        void Update(AgendaContatoModel agendaContato);
     }
 }
