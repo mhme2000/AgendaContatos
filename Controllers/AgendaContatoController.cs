@@ -22,22 +22,43 @@ namespace AgendaContatos.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("GetId/{agendaContatoId}")]
         public IActionResult Get(int agendaContatoId)
         {
             var model = _agendaContatoRepository.GetById(agendaContatoId);
+            if (model == null)
+                return NotFound("Contato não encontrado.");
             return Ok(model);
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var model = _agendaContatoRepository.GetAll();
+            if (model == null)
+                return NotFound("Nenhum contato cadastrado.");
+            return Ok(model);
+        }
 
         [HttpPut]
         public IActionResult Update([FromBody] AgendaContatoModel model)
         {
             var agendaContato = _agendaContatoRepository.GetById(model.AgendaContatoId);
             if (agendaContato == null)
-                return NotFound();
+                return NotFound("Contato não encontrado.");
             _agendaContatoRepository.Update(model);
             return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int agendaContatoId)
+        {
+            var agendaContato = _agendaContatoRepository.GetById(agendaContatoId);
+            if (agendaContato == null)
+                return NotFound("Contato não encontrado.");
+            _agendaContatoRepository.Delete(agendaContato);
+            return Ok();
+
         }
     }
 }

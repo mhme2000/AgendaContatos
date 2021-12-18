@@ -21,9 +21,20 @@ namespace AgendaContatos.Data.Repositories
             return _context.AgendaContato?.FirstOrDefault(t => t.AgendaContatoId == agendaContatoId);
         }
 
+        public IEnumerable<AgendaContatoModel>? GetAll()
+        {
+            return _context.AgendaContato?.Where(t => t.AgendaContatoId > 0);
+        }
+
         public void Update(AgendaContatoModel agendaContato)
         {
             _context.AgendaContato?.Update(agendaContato);
+            _context.SaveChanges();
+        }
+
+        public void Delete(AgendaContatoModel agendaContato)
+        {
+            _context.AgendaContato?.Remove(agendaContato);
             _context.SaveChanges();
         }
     }
