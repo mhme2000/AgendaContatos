@@ -13,8 +13,19 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AgendaContatoContext>();
 builder.Services.AddScoped<IAgendaContatoRepository, AgendaContatoRepository>();
 
+
+builder.Services.AddCors(options => {
+    options.AddPolicy("CorsPolicy",
+       builder => builder
+       .WithOrigins("http://localhost:3000")
+       .AllowAnyMethod()
+       .AllowAnyHeader());
+});
+
+
 var app = builder.Build();
 
+app.UseCors("CorsPolicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

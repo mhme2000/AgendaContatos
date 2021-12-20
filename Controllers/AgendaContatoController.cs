@@ -30,7 +30,6 @@ namespace AgendaContatos.Controllers
                 return NotFound("Contato não encontrado.");
             return Ok(model);
         }
-
         [HttpGet]
         public IActionResult GetAll()
         {
