@@ -36,7 +36,18 @@ namespace AgendaContatos.Controllers
             var model = _agendaContatoRepository.GetAll();
             if (model == null)
                 return NotFound("Nenhum contato cadastrado.");
-            return Ok(model);
+            var result = new List<AgendaContatoDTO>() { };
+            foreach (var item in model)
+            {
+                var temp = new AgendaContatoDTO()
+                {
+                    Id = item.AgendaContatoId,
+                    NomeContato = item.NomeContato,
+
+                };
+                result.Add(temp);
+            }
+            return Ok(result);
         }
 
         [HttpPut]
