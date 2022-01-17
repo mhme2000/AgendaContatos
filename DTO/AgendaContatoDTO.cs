@@ -2,7 +2,7 @@
 
 namespace AgendaContatos.Model
 {
-    public class AgendaContatoDTO
+    public class AgendaContatoDTO 
     {
         public int Id { get; set; }
         public string NomeContato { get; set; }

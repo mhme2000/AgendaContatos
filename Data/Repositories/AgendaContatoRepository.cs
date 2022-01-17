@@ -1,5 +1,6 @@
 ﻿using AgendaContatos.Data.Interfaces;
 using AgendaContatos.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace AgendaContatos.Data.Repositories
 {
@@ -18,7 +19,7 @@ namespace AgendaContatos.Data.Repositories
 
         public AgendaContatoModel? GetById(int agendaContatoId)
         {
-            return _context.AgendaContato?.FirstOrDefault(t => t.AgendaContatoId == agendaContatoId);
+            return _context.AgendaContato?.AsNoTracking().FirstOrDefault(t => t.AgendaContatoId == agendaContatoId);
         }
 
         public IEnumerable<AgendaContatoModel>? GetAll()

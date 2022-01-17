@@ -1,6 +1,8 @@
 using AgendaContatos.Data;
 using AgendaContatos.Data.Interfaces;
 using AgendaContatos.Data.Repositories;
+using AgendaContatos.Model;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,13 @@ builder.Services.AddCors(options => {
        .AllowAnyHeader());
 });
 
-
+var config = new AutoMapper.MapperConfiguration(cfg =>
+{
+    cfg.CreateMap<AgendaContatoModel, AgendaContatoDTO>()
+    .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.AgendaContatoId));
+});
+IMapper mapper = config.CreateMapper();
+builder.Services.AddSingleton(mapper);
 var app = builder.Build();
 
 app.UseCors("CorsPolicy");

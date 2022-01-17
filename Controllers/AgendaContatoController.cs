@@ -1,18 +1,20 @@
 using AgendaContatos.Data.Interfaces;
 using AgendaContatos.Model;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AgendaContatos.Controllers
 {
-
     [ApiController]
     [Route("[controller]")]
     public class AgendaContatoController : ControllerBase
     {
         private readonly IAgendaContatoRepository _agendaContatoRepository;
-        public AgendaContatoController(IAgendaContatoRepository agendaContatoRepository)
+        private readonly IMapper _mapper;
+        public AgendaContatoController(IAgendaContatoRepository agendaContatoRepository, IMapper mapper)
         {
             _agendaContatoRepository = agendaContatoRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -36,17 +38,8 @@ namespace AgendaContatos.Controllers
             var model = _agendaContatoRepository.GetAll();
             if (model == null)
                 return NotFound("Nenhum contato cadastrado.");
-            var result = new List<AgendaContatoDTO>() { };
-            foreach (var item in model)
-            {
-                var temp = new AgendaContatoDTO()
-                {
-                    Id = item.AgendaContatoId,
-                    NomeContato = item.NomeContato,
-
-                };
-                result.Add(temp);
-            }
+            var result = _mapper.Map<IEnumerable<AgendaContatoDTO>>(model);
+            
             return Ok(result);
         }
 
@@ -61,7 +54,7 @@ namespace AgendaContatos.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(int agendaContatoId)
+        public IActionResult Delete([FromQuery] int agendaContatoId)
         {
             var agendaContato = _agendaContatoRepository.GetById(agendaContatoId);
             if (agendaContato == null)
